@@ -19,5 +19,14 @@
             android:entryValues="@array/settings_vals_fart_delay"
             android:dialogTitle="@string/settings_header_fart_delay"
             android:defaultValue="5"/>
+
+        <SwitchPreference
+            android:key="io.github.mikeflynn.remotewhoopeecushion.fart_notify"
+            android:title="@string/settings_header_fart_notify"
+            android:summaryOff="@string/settings_header_fart_notify_off_summary"
+            android:summaryOn="@string/settings_header_fart_notify_on_summary"
+            android:switchTextOff="@string/settings_header_fart_notify_off_title"
+            android:switchTextOn="@string/settings_header_fart_notify_on_title"
+            android:defaultValue="false"/>
     </PreferenceCategory>
 </PreferenceScreen>

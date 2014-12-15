@@ -15,4 +15,9 @@
     <string name="settings_fart_header">Fart Settings</string>
     <string name="settings_header_fart_delay">Select a Fart Delay:</string>
     <string name="settings_desc_fart_delay">How long should we wait after you hit the trigger?</string>
+    <string name="settings_header_fart_notify">Fart Notification</string>
+    <string name="settings_header_fart_notify_off_summary">You will not get notified.</string>
+    <string name="settings_header_fart_notify_on_summary">You will get notified.</string>
+    <string name="settings_header_fart_notify_off_title">Off</string>
+    <string name="settings_header_fart_notify_on_title">On</string>
 </resources>
