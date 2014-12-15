@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/settings_fart_header">
+        <ListPreference
+            android:key="io.github.mikeflynn.remotewhoopeecushion.fart_type"
+            android:title="@string/settings_header_fart_type"
+            android:summary="@string/settings_desc_fart_type"
+            android:entries="@array/settings_list_fart_type"
+            android:entryValues="@array/settings_vals_fart_type"
+            android:dialogTitle="@string/settings_header_fart_type"
+            android:defaultValue="chipotle"/>
+
+        <ListPreference
+            android:key="io.github.mikeflynn.remotewhoopeecushion.fart_delay"
+            android:title="@string/settings_header_fart_delay"
+            android:summary="@string/settings_desc_fart_delay"
+            android:entries="@array/settings_list_fart_delay"
+            android:entryValues="@array/settings_vals_fart_delay"
+            android:dialogTitle="@string/settings_header_fart_delay"
+            android:defaultValue="5"/>
+    </PreferenceCategory>
+</PreferenceScreen>
