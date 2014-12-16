@@ -1,5 +1,6 @@
 package io.github.mikeflynn.remotewhoopeecushion;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
@@ -8,14 +9,14 @@ import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,23 @@ public class MainActivity extends ActionBarActivity {
         if(intent != null) {
             handleIntent(intent);
         }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        // Set delay notice
+        String delayNotice = "";
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String delay = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0");
+        if(!delay.equals("0")) {
+            delayNotice = delay + " SECOND DELAY";
+        }
+
+        TextView t = (TextView)findViewById(R.id.delay_notice);
+        t.setText(delayNotice);
     }
 
     @Override

@@ -24,7 +24,7 @@
         android:layout_margin="10dp"
         android:background="@drawable/confirm_button"
         android:layout_gravity="bottom|left"
-        android:src="@drawable/ic_action_tick"
+        android:src="@drawable/ic_new_releases_white_48dp"
         android:onClick="startFart" />
 
     <ImageView
@@ -35,5 +35,14 @@
         android:id="@+id/main_button"
         android:layout_gravity="center"
         android:alpha=".20" />
+
+    <TextView
+        android:id="@+id/delay_notice"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/offblack"
+        android:textSize="16sp"
+        android:layout_gravity="bottom|right"/>
 
 </FrameLayout>
