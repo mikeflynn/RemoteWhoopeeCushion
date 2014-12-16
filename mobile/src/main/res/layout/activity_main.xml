@@ -18,7 +18,7 @@
             android:src="@drawable/whoopee_transparent"
             android:contentDescription="@string/main_description"
             android:id="@+id/main_button"
-            android:onClick="playFart"/>
+            android:onClick="startFart"/>
     </LinearLayout>
 
     <LinearLayout

@@ -1,9 +1,7 @@
 package io.github.mikeflynn.remotewhoopeecushion;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -12,19 +10,49 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Log.w("methodCalled", "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            handleIntent(intent);
+        }
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        //Log.w("methodCalled", "onNewIntent");
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    protected void handleIntent(Intent intent) {
+        String methodName = intent.getStringExtra("methodName");
+        if(methodName != null) {
+            if (methodName.equals("playFart")) {
+                playFart();
+            }
+        }
+
+        //if (methodName == null) {
+        //    methodName = "NULL";
+        //}
+        //Log.w("intentMethodName", methodName);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,7 +73,12 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void playFart(View view) {
+    public void startFart(View view) {
+        playFart();
+    }
+
+    public void playFart() {
+        //Log.w("whatsHappening", "Playing fart!");
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String wavName = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
@@ -104,3 +137,4 @@ public class MainActivity extends ActionBarActivity {
         notificationManager.notify(0, mBuilder.build());
     }
 }
+

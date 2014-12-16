@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.WatchViewStub
+<android.support.wearable.view.BoxInsetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/watch_view_stub"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_main" app:roundLayout="@layout/round_activity_main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     tools:context=".MainActivity"
-    tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_box="all"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/main_title"
+            android:text="@string/main_title"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:text="@string/details"
+            android:gravity="center"
+            android:paddingTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"/>
+
+        <ImageButton
+            android:id="@+id/delayed_confirm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/confirm_button"
+            android:layout_gravity="bottom|left"
+            android:src="@drawable/ic_action_tick"
+            android:onClick="requestFart">
+        </ImageButton>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/whoopee_transparent"
+            android:layout_gravity="right"
+            android:alpha=".20" />
+    </FrameLayout>
+</android.support.wearable.view.BoxInsetLayout>
