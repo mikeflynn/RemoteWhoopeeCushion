@@ -2,7 +2,7 @@
 <resources>
     <string-array name="settings_list_fart_type">
         <item>Chipotle</item>
-        <item>Wet</item>
+        <item>Moist</item>
         <item>Quick</item>
     </string-array>
     <string-array name="settings_vals_fart_type">
