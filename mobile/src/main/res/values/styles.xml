@@ -5,7 +5,9 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">#D888B0</item>
+        <item name="android:background">@color/pink</item>
     </style>
-
+    <style name="MyOverlayBar" parent="@android:style/Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
 </resources>

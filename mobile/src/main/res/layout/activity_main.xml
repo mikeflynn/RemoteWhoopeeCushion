@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/whoopee_bg"
+        android:contentDescription="@string/main_bg_description"
         android:alpha=".75" />
 
     <LinearLayout
@@ -36,17 +37,16 @@
                 android:orientation="vertical"
                 android:padding="@dimen/activity_horizontal_margin">
                 <TextView
-                    android:text="Remote Whoopee Cushion"
+                    android:text="@string/help_card_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:textColor="#333333" />
+                    android:textColor="@color/offblack" />
 
                 <View
-                    android:background="#000000"
+                    android:background="@color/black"
                     android:layout_width ="fill_parent"
                     android:layout_height="1dip"
-                    android:layout_centerVertical="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"/>
 
@@ -81,7 +81,7 @@
                 android:src="@drawable/ic_new_releases_white_48dp"/>
 
             <TextView
-                android:text="Tap to Fart!"
+                android:text="@string/fart_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
