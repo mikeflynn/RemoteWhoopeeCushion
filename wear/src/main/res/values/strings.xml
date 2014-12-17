@@ -2,9 +2,10 @@
 <resources>
 
     <string name="app_name">Remote Whoopee Cushion</string>
-    <string name="main_title">Tap to Fart</string>
+    <string name="main_title">Tap to Fart!</string>
     <string name="main_description">Tap to Fart</string>
     <string name="fart_sent">Fart!</string>
     <string name="details">Farting will commence after your preset delay.</string>
+    <string name="main_bg_description">Retro Whoopee Cushion Logo</string>
 
 </resources>
