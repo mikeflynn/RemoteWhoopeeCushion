@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -88,7 +91,13 @@ public class MainActivity extends Activity {
     }
 
     public void startFart(View view) {
+        // Start farting
         playFart();
+
+        // Shake button
+        YoYo.with(Techniques.Wobble)
+                .duration(750)
+                .playOn(findViewById(R.id.card_start));
     }
 
     public void playFart() {
