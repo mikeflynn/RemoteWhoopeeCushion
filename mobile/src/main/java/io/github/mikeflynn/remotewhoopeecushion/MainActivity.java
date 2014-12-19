@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.Random;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -43,7 +45,11 @@ public class MainActivity extends Activity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String delay = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0");
         if(!delay.equals("0")) {
-            delayNotice = delay + " SECOND DELAY";
+            if(delay.equals("-1")) {
+                delayNotice = "RANDOM DELAY";
+            } else {
+                delayNotice = delay + " SECOND DELAY";
+            }
         }
 
         TextView t = (TextView)findViewById(R.id.delay_notice);
@@ -93,11 +99,17 @@ public class MainActivity extends Activity {
     public void startFart(View view) {
         // Start farting
         playFart();
+    }
 
-        // Shake button
-        YoYo.with(Techniques.Wobble)
-                .duration(750)
-                .playOn(findViewById(R.id.card_start));
+    protected int getDelay() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int delay = Integer.valueOf(prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0"));
+        if(delay == -1) {
+            Random r = new Random();
+            delay = r.nextInt(10 - 1) + 1;
+        }
+
+        return delay;
     }
 
     public void playFart() {
@@ -105,7 +117,7 @@ public class MainActivity extends Activity {
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String wavName = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
-        final int wavDelay = Integer.valueOf(prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0"));
+        final int wavDelay = getDelay();
         final boolean wavNotify = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.fart_notify", false);
 
         int wavId = getResources().getIdentifier("raw/"+wavName, null, this.getPackageName());
@@ -126,6 +138,11 @@ public class MainActivity extends Activity {
                         if(wavNotify) {
                             triggerNotification("Just Farted.", "Was it funny? Yes.");
                         }
+
+                        // Shake button
+                        YoYo.with(Techniques.Wobble)
+                                .duration(750)
+                                .playOn(findViewById(R.id.card_start));
                     }
                 });
             }
