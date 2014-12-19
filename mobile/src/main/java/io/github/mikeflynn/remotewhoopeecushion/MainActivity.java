@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class MainActivity extends Activity {
@@ -112,16 +114,32 @@ public class MainActivity extends Activity {
         return delay;
     }
 
+    protected String getFile() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
+
+        if(name.equals("-1")) {
+            ArrayList<String> options = new ArrayList<String>();
+            Collections.addAll(options, getResources().getStringArray(R.array.settings_vals_fart_type));
+            options.remove(options.size() - 1);
+
+            int idx = new Random().nextInt(options.size());
+            name = options.get(idx);
+        }
+
+        return name;
+    }
+
     public void playFart() {
-        //Log.w("whatsHappening", "Playing fart!");
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String wavName = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
+        String wavName = getFile();
         final int wavDelay = getDelay();
         final boolean wavNotify = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.fart_notify", false);
 
         int wavId = getResources().getIdentifier("raw/"+wavName, null, this.getPackageName());
         final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), wavId);
+        mp.setVolume(1, 1);
 
         new Thread(new Runnable() {
             @Override

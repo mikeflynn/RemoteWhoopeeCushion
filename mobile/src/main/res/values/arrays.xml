@@ -4,11 +4,13 @@
         <item>Chipotle</item>
         <item>Moist</item>
         <item>Quick</item>
+        <item>Random</item>
     </string-array>
     <string-array name="settings_vals_fart_type">
         <item>chipotle</item>
         <item>moist</item>
         <item>quick</item>
+        <item>-1</item>
     </string-array>
     <string-array name="settings_list_fart_delay">
         <item>None</item>
