@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="settings_list_fart_type">
+        <item>Beans</item>
         <item>Chipotle</item>
+        <item>Grunter</item>
         <item>Moist</item>
+        <item>Muffled</item>
         <item>Quick</item>
         <item>Random</item>
     </string-array>
     <string-array name="settings_vals_fart_type">
+        <item>beans</item>
         <item>chipotle</item>
+        <item>grunter</item>
         <item>moist</item>
+        <item>muffled</item>
         <item>quick</item>
         <item>-1</item>
     </string-array>
