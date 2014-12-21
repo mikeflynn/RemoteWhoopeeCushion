@@ -18,7 +18,7 @@
             android:entries="@array/settings_list_fart_delay"
             android:entryValues="@array/settings_vals_fart_delay"
             android:dialogTitle="@string/settings_header_fart_delay"
-            android:defaultValue="5"/>
+            android:defaultValue="0"/>
 
         <SwitchPreference
             android:key="io.github.mikeflynn.remotewhoopeecushion.fart_notify"
