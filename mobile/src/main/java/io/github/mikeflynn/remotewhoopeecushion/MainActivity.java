@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.Random;
 
 public class MainActivity extends Activity {
+    private static Boolean isFarting = false;
+    private static Boolean isRecording = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +43,7 @@ public class MainActivity extends Activity {
     protected void onStart(){
         super.onStart();
 
-        // Set delay notice
-        String delayNotice = "";
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String delay = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0");
-        if(!delay.equals("0")) {
-            if(delay.equals("-1")) {
-                delayNotice = "RANDOM DELAY";
-            } else {
-                delayNotice = delay + " SECOND DELAY";
-            }
-        }
-
-        TextView t = (TextView)findViewById(R.id.delay_notice);
-        t.setText(delayNotice);
+        resetFartButton();
     }
 
     @Override
@@ -68,9 +56,11 @@ public class MainActivity extends Activity {
     protected void handleIntent(Intent intent) {
         String methodName = intent.getStringExtra("methodName");
         if(methodName != null) {
-            if (methodName.equals("playFart")) {
+            if (methodName.equals("playFart") && !isFarting) {
                 playFart();
             }
+
+            getIntent().removeExtra("methodName");
         }
 
         //if (methodName == null) {
@@ -98,9 +88,28 @@ public class MainActivity extends Activity {
         }
     }
 
+    protected void resetFartButton() {
+        // Set delay notice
+        String delayNotice = "";
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String delay = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_delay", "0");
+        if(!delay.equals("0")) {
+            if(delay.equals("-1")) {
+                delayNotice = "RANDOM DELAY";
+            } else {
+                delayNotice = delay + " SECOND DELAY";
+            }
+        }
+
+        TextView t = (TextView)findViewById(R.id.delay_notice);
+        t.setText(delayNotice);
+    }
+
     public void startFart(View view) {
-        // Start farting
-        playFart();
+        if(!isFarting) {
+            playFart();
+        }
     }
 
     protected int getDelay() {
@@ -131,6 +140,8 @@ public class MainActivity extends Activity {
     }
 
     public void playFart() {
+        isFarting = true;
+
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String wavName = getFile();
@@ -153,6 +164,8 @@ public class MainActivity extends Activity {
                     @Override
                     public void run() {
                         mp.start();
+
+                        // Display notification?
                         if(wavNotify) {
                             triggerNotification("Just Farted.", "Was it funny? Yes.");
                         }
@@ -161,6 +174,8 @@ public class MainActivity extends Activity {
                         YoYo.with(Techniques.Wobble)
                                 .duration(750)
                                 .playOn(findViewById(R.id.card_start));
+
+                        isFarting = false;
                     }
                 });
             }
