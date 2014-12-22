@@ -29,4 +29,15 @@
             android:switchTextOn="@string/settings_header_fart_notify_on_title"
             android:defaultValue="false"/>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Recording Settings">
+        <SwitchPreference
+            android:key="io.github.mikeflynn.remotewhoopeecushion.record"
+            android:title="@string/settings_header_record"
+            android:summaryOff="@string/settings_header_record_off_summary"
+            android:summaryOn="@string/settings_header_record_on_summary"
+            android:switchTextOff="@string/settings_header_record_off_title"
+            android:switchTextOn="@string/settings_header_record_on_title"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -136,7 +136,6 @@ public class MainActivity extends Activity {
     }
 
     public void startFart(View view) {
-        recordingFartButton();
         if(!isFarting) {
             playFart();
         }
