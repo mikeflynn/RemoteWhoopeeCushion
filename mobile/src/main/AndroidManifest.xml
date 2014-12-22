@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.mikeflynn.remotewhoopeecushion" >
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="false"

@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
     private static Boolean isFarting = false;
-    private static Boolean isRecording = false;
     private ObjectAnimator recordBtnThrobber = null;
 
     @Override
@@ -99,18 +98,27 @@ public class MainActivity extends Activity {
         }
     }
 
-    protected void resetFartButton() {
-        // Kill the recording throbber animation.
-        this.recordBtnThrobber.cancel();
+    protected void isFarting(boolean flag) {
+        isFarting = flag;
+    }
 
+    public void tempFn(View view) {
+        resetFartButton();
+    }
+
+    protected void resetFartButton() {
+Log.w("MAIN", "resetFartButton() START");
+        // Kill the recording throbber animation.
+        recordBtnThrobber.cancel();
+Log.w("MAIN", "Throbber killed.");
         // Set background color
         View btn = findViewById(R.id.card_bg);
         btn.setBackgroundColor(getResources().getColor(R.color.green));
-
+        Log.w("MAIN", "BG reset");
         // Set the button text
         TextView btnText = (TextView)findViewById(R.id.card_start_text);
         btnText.setText(R.string.fart_button);
-
+        Log.w("MAIN", "Text reset.");
         // Set delay notice
         String delayNotice = "";
 
@@ -123,9 +131,11 @@ public class MainActivity extends Activity {
                 delayNotice = delay + " SECOND DELAY";
             }
         }
-
+        Log.w("MAIN", "Delay notice" + delayNotice);
         TextView t = (TextView)findViewById(R.id.delay_notice);
         t.setText(delayNotice);
+
+        Log.w("MAIN", "resetFartButton() END");
     }
 
     protected void recordingFartButton() {
@@ -169,13 +179,14 @@ public class MainActivity extends Activity {
     }
 
     public void playFart() {
-        isFarting = true;
+        isFarting(true);
 
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String wavName = getFile();
         final int wavDelay = getDelay();
         final boolean wavNotify = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.fart_notify", false);
+        final boolean doRecord = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.record", false);
 
         int wavId = getResources().getIdentifier("raw/"+wavName, null, this.getPackageName());
         final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), wavId);
@@ -192,6 +203,24 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        // Start the recording?
+                        if(doRecord) {
+                            // Update the button.
+                            recordingFartButton();
+
+                            Long tsLong = System.currentTimeMillis()/1000;
+                            String ts = tsLong.toString();
+                            final Recording rec = new Recording(ts, getApplicationContext());
+                            rec.startRecording();
+                            rec.stopRecording(5, new Recording.stopRecordingCallback() {
+                                public void onStopRecording() {
+                                    isFarting(false);
+                                    resetFartButton();
+                                }
+                            });
+                        }
+
+                        // Play the fart
                         mp.start();
 
                         // Display notification?
@@ -204,7 +233,9 @@ public class MainActivity extends Activity {
                                 .duration(750)
                                 .playOn(findViewById(R.id.card_start));
 
-                        isFarting = false;
+                        if(!doRecord) {
+                            isFarting(false);
+                        }
                     }
                 });
             }

@@ -8,10 +8,15 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Recording {
     private static final String LOG_TAG = "Recording";
     private static final String PREFIX = "rec_";
+
+    private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
 
     private String filename;
     private Context ctx;
@@ -19,7 +24,7 @@ public class Recording {
     private MediaPlayer mPlayer = null;
 
     public Recording(String outfile, Context ctx) {
-        this.filename = outfile;
+        this.filename = outfile + ".3pg";
         this.ctx = ctx;
     }
 
@@ -40,7 +45,7 @@ public class Recording {
 
     /* Public getter methods */
     public String getPath() {
-        return this.ctx.getFilesDir() + PREFIX + this.filename;
+        return this.ctx.getFilesDir() + "/" + PREFIX + this.filename;
     }
 
     public String getFilename() {
@@ -64,10 +69,25 @@ public class Recording {
         mRecorder.start();
     }
 
+    public interface stopRecordingCallback {
+        public void onStopRecording();
+    }
+
     public void stopRecording() {
         mRecorder.stop();
+        mRecorder.reset();
         mRecorder.release();
         mRecorder = null;
+    }
+
+    public void stopRecording(int delay, final stopRecordingCallback callback) {
+        Runnable task = new Runnable() {
+            public void run() {
+                stopRecording();
+                callback.onStopRecording();
+            }
+        };
+        worker.schedule(task, delay, TimeUnit.SECONDS);
     }
 
     public void play() {

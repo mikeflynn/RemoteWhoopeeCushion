@@ -26,7 +26,7 @@
     <string name="title_activity_recordings">Recordings</string>
     <string name="settings_header_record">Reaction Recording</string>
     <string name="settings_header_record_off_summary">No reactions will be recorded.</string>
-    <string name="settings_header_record_on_summary">30 seconds of reaction audio will be recorded.</string>
+    <string name="settings_header_record_on_summary">15 seconds of reaction audio will be recorded.</string>
     <string name="settings_header_record_off_title">Off</string>
     <string name="settings_header_record_on_title">On</string>
 </resources>
