@@ -107,18 +107,17 @@ public class MainActivity extends Activity {
     }
 
     protected void resetFartButton() {
-Log.w("MAIN", "resetFartButton() START");
         // Kill the recording throbber animation.
         recordBtnThrobber.cancel();
-Log.w("MAIN", "Throbber killed.");
+
         // Set background color
         View btn = findViewById(R.id.card_bg);
         btn.setBackgroundColor(getResources().getColor(R.color.green));
-        Log.w("MAIN", "BG reset");
+
         // Set the button text
         TextView btnText = (TextView)findViewById(R.id.card_start_text);
         btnText.setText(R.string.fart_button);
-        Log.w("MAIN", "Text reset.");
+
         // Set delay notice
         String delayNotice = "";
 
@@ -131,11 +130,9 @@ Log.w("MAIN", "Throbber killed.");
                 delayNotice = delay + " SECOND DELAY";
             }
         }
-        Log.w("MAIN", "Delay notice" + delayNotice);
+
         TextView t = (TextView)findViewById(R.id.delay_notice);
         t.setText(delayNotice);
-
-        Log.w("MAIN", "resetFartButton() END");
     }
 
     protected void recordingFartButton() {
@@ -212,12 +209,7 @@ Log.w("MAIN", "Throbber killed.");
                             String ts = tsLong.toString();
                             final Recording rec = new Recording(ts, getApplicationContext());
                             rec.startRecording();
-                            rec.stopRecording(5, new Recording.stopRecordingCallback() {
-                                public void onStopRecording() {
-                                    isFarting(false);
-                                    resetFartButton();
-                                }
-                            });
+                            stopRecording(rec, 5);
                         }
 
                         // Play the fart
@@ -236,6 +228,27 @@ Log.w("MAIN", "Throbber killed.");
                         if(!doRecord) {
                             isFarting(false);
                         }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    protected void stopRecording(final Recording rec, final int delay) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(delay * 1000);
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rec.stopRecording();
+                        isFarting(false);
+                        resetFartButton();
                     }
                 });
             }

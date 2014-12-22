@@ -69,25 +69,11 @@ public class Recording {
         mRecorder.start();
     }
 
-    public interface stopRecordingCallback {
-        public void onStopRecording();
-    }
-
     public void stopRecording() {
         mRecorder.stop();
         mRecorder.reset();
         mRecorder.release();
         mRecorder = null;
-    }
-
-    public void stopRecording(int delay, final stopRecordingCallback callback) {
-        Runnable task = new Runnable() {
-            public void run() {
-                stopRecording();
-                callback.onStopRecording();
-            }
-        };
-        worker.schedule(task, delay, TimeUnit.SECONDS);
     }
 
     public void play() {
