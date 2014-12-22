@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -26,6 +29,7 @@ import java.util.Random;
 public class MainActivity extends Activity {
     private static Boolean isFarting = false;
     private static Boolean isRecording = false;
+    private ObjectAnimator recordBtnThrobber = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,13 @@ public class MainActivity extends Activity {
         Intent intent = getIntent();
         if(intent != null) {
             handleIntent(intent);
+        }
+
+        if(this.recordBtnThrobber == null) {
+            this.recordBtnThrobber = ObjectAnimator.ofObject(findViewById(R.id.card_bg), "backgroundColor", new ArgbEvaluator(), getResources().getColor(R.color.recording_start), getResources().getColor(R.color.recording_end));
+            this.recordBtnThrobber.setDuration(750);
+            this.recordBtnThrobber.setRepeatCount(ValueAnimator.INFINITE);
+            this.recordBtnThrobber.setRepeatMode(ValueAnimator.REVERSE);
         }
     }
 
@@ -89,6 +100,17 @@ public class MainActivity extends Activity {
     }
 
     protected void resetFartButton() {
+        // Kill the recording throbber animation.
+        this.recordBtnThrobber.cancel();
+
+        // Set background color
+        View btn = findViewById(R.id.card_bg);
+        btn.setBackgroundColor(getResources().getColor(R.color.green));
+
+        // Set the button text
+        TextView btnText = (TextView)findViewById(R.id.card_start_text);
+        btnText.setText(R.string.fart_button);
+
         // Set delay notice
         String delayNotice = "";
 
@@ -106,7 +128,15 @@ public class MainActivity extends Activity {
         t.setText(delayNotice);
     }
 
+    protected void recordingFartButton() {
+        TextView btnText = (TextView)findViewById(R.id.card_start_text);
+        btnText.setText(R.string.fart_button_recording);
+
+        this.recordBtnThrobber.start();
+    }
+
     public void startFart(View view) {
+        recordingFartButton();
         if(!isFarting) {
             playFart();
         }

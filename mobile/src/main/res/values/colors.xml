@@ -5,4 +5,6 @@
     <color name="white">#FFFFFF</color>
     <color name="offblack">#333333</color>
     <color name="pink">#fb9895</color>
+    <color name="recording_start">#ad3232</color>
+    <color name="recording_end">#990000</color>
 </resources>
