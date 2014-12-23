@@ -5,6 +5,7 @@
     <string name="main_title">Remote Whoopee Cushion</string>
     <string name="main_description">Simply tap on the button below to fart, or use your Android Wear device to trigger a fart remotely.\n\nCheck out the settings page to change the fart type, set a fart delay and notification options.</string>
     <string name="action_settings">Settings</string>
+    <string name="action_recordings">Reactions</string>
     <string name="fart_button">Tap to Fart!</string>
     <string name="fart_button_recording">Recording&#8230;</string>
     <string name="help_card_header">Remote Whoopee Cushion</string>
@@ -23,7 +24,7 @@
     <string name="settings_header_fart_notify_on_summary">You will get notified.</string>
     <string name="settings_header_fart_notify_off_title">Off</string>
     <string name="settings_header_fart_notify_on_title">On</string>
-    <string name="title_activity_recordings">Recordings</string>
+    <string name="title_activity_recordings">Reactions</string>
     <string name="settings_header_record">Reaction Recording</string>
     <string name="settings_header_record_off_summary">No reactions will be recorded.</string>
     <string name="settings_header_record_on_summary">15 seconds of reaction audio will be recorded.</string>

@@ -13,55 +13,13 @@
         android:background="@drawable/whoopee_bg"
         android:contentDescription="@string/main_bg_description"
         android:alpha=".75" />
-    <LinearLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recordingsList"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="75dp"
-        android:weightSum="1">
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_help"
-            android:layout_gravity="top|center"
-            card_view:cardCornerRadius="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardElevation="5sp"
-            android:layout_margin="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin">
-
-                <TextView
-                    android:text="Saved Recordings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/offblack"/>
-
-                <View
-                    android:background="@color/black"
-                    android:layout_width ="fill_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
-
-                <ListView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/listView"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/textView" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"/>
 
 </FrameLayout>

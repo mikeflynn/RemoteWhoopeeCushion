@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Recording {
     private static final String LOG_TAG = "Recording";
     private static final String PREFIX = "rec_";
+    private static final String EXTENSION = ".3gp";
 
     private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
 
@@ -24,7 +25,7 @@ public class Recording {
     private MediaPlayer mPlayer = null;
 
     public Recording(String outfile, Context ctx) {
-        this.filename = outfile + ".3pg";
+        this.filename = outfile;
         this.ctx = ctx;
     }
 
@@ -35,7 +36,7 @@ public class Recording {
         String[] fileList = ctx.fileList();
         for(String f : fileList) {
             if (f.startsWith(prefix)) {
-                String filename = f.substring(PREFIX.length());
+                String filename = f.substring(PREFIX.length(), f.length()-EXTENSION.length());
                 allFiles.add(new Recording(filename, ctx));
             }
         }
@@ -45,7 +46,7 @@ public class Recording {
 
     /* Public getter methods */
     public String getPath() {
-        return this.ctx.getFilesDir() + "/" + PREFIX + this.filename;
+        return this.ctx.getFilesDir() + "/" + PREFIX + this.filename + EXTENSION;
     }
 
     public String getFilename() {
@@ -76,15 +77,19 @@ public class Recording {
         mRecorder = null;
     }
 
-    public void play() {
+    public MediaPlayer play() {
         mPlayer = new MediaPlayer();
         try {
             mPlayer.setDataSource(this.getPath());
             mPlayer.prepare();
             mPlayer.start();
+
+            return mPlayer;
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
         }
+
+        return null;
     }
 
     public void stop() {

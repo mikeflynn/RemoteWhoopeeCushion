@@ -93,6 +93,9 @@ public class MainActivity extends Activity {
             case R.id.action_settings:
                 openSettings();
                 return true;
+            case R.id.action_recordings:
+                openRecordings();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -257,6 +260,11 @@ public class MainActivity extends Activity {
 
     public void openSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openRecordings() {
+        Intent intent = new Intent(this, RecordingsActivity.class);
         startActivity(intent);
     }
 
