@@ -212,7 +212,7 @@ public class MainActivity extends Activity {
                             String ts = tsLong.toString();
                             final Recording rec = new Recording(ts, getApplicationContext());
                             rec.startRecording();
-                            stopRecording(rec, 5);
+                            stopRecording(rec, 10);
                         }
 
                         // Play the fart
