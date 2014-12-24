@@ -71,6 +71,9 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
         // Get the file list
         recordings = Recording.getList(getApplicationContext(), "rec_");
         Collections.reverse(recordings);
+        if(recordings.size() > 0) {
+            findViewById(R.id.noRecordingsMsg).setVisibility(View.GONE);
+        }
 
         // Set up the list view
         mRecyclerView = (RecyclerView) findViewById(R.id.recordingsList);
