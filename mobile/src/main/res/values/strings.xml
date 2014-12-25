@@ -23,7 +23,7 @@
     <string name="recordings_help_title">Help</string>
     <string name="recordings_help_ok">OK</string>
     <string name="no_recordings_header">No Reactions</string>
-    <string name="no_recordings_msg">You don't have any recorded reactions yet!\n\nTo create reactions, turn on recording from the settings page and then find a victim!</string>
+    <string name="no_recordings_msg">You don\'t have any recorded reactions yet!\n\nTo create reactions, turn on recording from the settings page and then find a victim!</string>
     <!-- Settings Activity -->
     <string name="settings_header_fart_type">Select a Fart Type:</string>
     <string name="settings_desc_fart_type">The type of fart sound you want to use.</string>

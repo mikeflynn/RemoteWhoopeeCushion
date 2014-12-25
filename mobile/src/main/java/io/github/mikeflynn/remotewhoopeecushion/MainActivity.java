@@ -105,10 +105,6 @@ public class MainActivity extends Activity {
         isFarting = flag;
     }
 
-    public void tempFn(View view) {
-        resetFartButton();
-    }
-
     protected void resetFartButton() {
         // Kill the recording throbber animation.
         recordBtnThrobber.cancel();

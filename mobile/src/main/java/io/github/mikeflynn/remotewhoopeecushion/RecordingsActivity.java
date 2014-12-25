@@ -36,6 +36,8 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
 
     private ArrayList<Recording> recordings;
 
+    static private boolean isPlaying = false;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -142,11 +144,13 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
             final View view = mRecyclerView.findChildViewUnder(e.getX(), e.getY());
             int position = mRecyclerView.getChildPosition(view);
 
-            if(position == -1) {
+            if(position == -1 || isPlaying) {
                 return false;
             }
 
             // handle single tap
+            isPlaying = true;
+
             final ImageView img = (ImageView) view.findViewById(R.id.play_img);
             img.setImageResource(R.drawable.ic_play_circle_outline_white_48dp);
             final TextView title = (TextView) view.findViewById(R.id.recording_title);
@@ -160,6 +164,8 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
                     title.setTextColor(getResources().getColor(R.color.offblack));
                     view.setBackgroundColor(getResources().getColor(R.color.white));
                     img.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
+
+                    isPlaying = false;
                 }
             });
 
