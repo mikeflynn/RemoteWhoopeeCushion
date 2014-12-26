@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -47,6 +48,9 @@ public class MainActivity extends Activity {
             this.recordBtnThrobber.setRepeatCount(ValueAnimator.INFINITE);
             this.recordBtnThrobber.setRepeatMode(ValueAnimator.REVERSE);
         }
+
+        // Set the volume controls to control media playback volume rather than the ringer.
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     @Override
