@@ -23,6 +23,7 @@ import android.animation.ValueAnimator;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -51,6 +52,43 @@ public class MainActivity extends Activity {
 
         // Set the volume controls to control media playback volume rather than the ringer.
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        // Set the long press handler on the fart button
+        findViewById(R.id.card_start).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                isFarting = true;
+
+                final TextView btnText = (TextView) findViewById(R.id.card_start_text);
+                btnText.setText("Easter Egg!");
+
+                try {
+                    int eggId = getResources().getIdentifier("stepbrothers_fart", "raw", getApplicationContext().getPackageName());
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), eggId);
+                    //mp.prepare();
+                    mp.setVolume(1, 1);
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            isFarting = false;
+                            btnText.setText(R.string.fart_button);
+                        }
+                    });
+
+                    YoYo.with(Techniques.Tada)
+                            .duration(1000)
+                            .playOn(findViewById(R.id.card_start));
+
+                    mp.start();
+                } catch (Exception e) {
+                    isFarting = false;
+                    btnText.setText(R.string.fart_button);
+                    return false;
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override
