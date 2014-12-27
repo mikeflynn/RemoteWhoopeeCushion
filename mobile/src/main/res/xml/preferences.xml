@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
+        android:key="farts"
         android:title="@string/settings_fart_header">
         <ListPreference
             android:key="io.github.mikeflynn.remotewhoopeecushion.fart_type"
@@ -30,6 +31,7 @@
             android:defaultValue="false"/>
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="recordings"
         android:title="Recording Settings">
         <SwitchPreference
             android:key="io.github.mikeflynn.remotewhoopeecushion.record"

@@ -11,4 +11,9 @@
         android:title="@string/action_recordings"
         android:orderInCategory="101"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_farts"
+        android:title="Custom Farts"
+        android:orderInCategory="102"
+        app:showAsAction="never" />
 </menu>

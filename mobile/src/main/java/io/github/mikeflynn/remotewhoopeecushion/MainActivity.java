@@ -138,6 +138,8 @@ public class MainActivity extends Activity {
             case R.id.action_recordings:
                 openRecordings();
                 return true;
+            case R.id.action_farts:
+                openFarts();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -303,6 +305,11 @@ public class MainActivity extends Activity {
 
     public void openRecordings() {
         Intent intent = new Intent(this, RecordingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void openFarts() {
+        Intent intent = new Intent(this, FartsActivity.class);
         startActivity(intent);
     }
 

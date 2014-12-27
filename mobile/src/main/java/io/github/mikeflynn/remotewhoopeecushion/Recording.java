@@ -14,11 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Recording {
     private static final String LOG_TAG = "Recording";
-    private static final String PREFIX = "rec_";
     private static final String EXTENSION = ".3gp";
 
     private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
 
+    private String prefix = "rec_";
     private String filename;
     private Context ctx;
     private MediaRecorder mRecorder = null;
@@ -27,6 +27,13 @@ public class Recording {
     public Recording(String outfile, Context ctx) {
         this.filename = outfile;
         this.ctx = ctx;
+        this.prefix = "rec_";
+    }
+
+    public Recording(String outfile, Context ctx, String prefix) {
+        this.filename = outfile;
+        this.ctx = ctx;
+        this.prefix = prefix;
     }
 
     /* Static methods */
@@ -36,8 +43,8 @@ public class Recording {
         String[] fileList = ctx.fileList();
         for(String f : fileList) {
             if (f.startsWith(prefix)) {
-                String filename = f.substring(PREFIX.length(), f.length()-EXTENSION.length());
-                allFiles.add(new Recording(filename, ctx));
+                String filename = f.substring(prefix.length(), f.length()-EXTENSION.length());
+                allFiles.add(new Recording(filename, ctx, prefix));
             }
         }
 
@@ -46,7 +53,7 @@ public class Recording {
 
     /* Public getter methods */
     public String getPath() {
-        return this.ctx.getFilesDir() + "/" + PREFIX + this.filename + EXTENSION;
+        return this.ctx.getFilesDir() + "/" + prefix + this.filename + EXTENSION;
     }
 
     public String getFilename() {
@@ -101,8 +108,11 @@ public class Recording {
         return new File(this.getPath()).delete();
     }
 
-    /* Private methods */
-    protected boolean save() {
-        return true;
+    public boolean rename(String newName) {
+        File curFile = new File(getPath());
+        filename = newName;
+        File newFile = new File(getPath());
+
+        return curFile.renameTo(newFile);
     }
 }

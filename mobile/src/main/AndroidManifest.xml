@@ -49,8 +49,17 @@
         <activity
             android:name=".RecordingsActivity"
             android:label="@string/title_activity_recordings"
-            android:parentActivityName=".MainActivity"
-            android:logo="@drawable/ic_poof_white">
+            android:logo="@drawable/ic_poof_white"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.mikeflynn.remotewhoopeecushion.MainActivity" />
+        </activity>
+        <activity
+            android:name=".FartsActivity"
+            android:label="@string/title_activity_farts"
+            android:logo="@drawable/ic_poof_white"
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.mikeflynn.remotewhoopeecushion.MainActivity" />
