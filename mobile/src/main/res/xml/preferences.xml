@@ -3,14 +3,6 @@
     <PreferenceCategory
         android:key="farts"
         android:title="@string/settings_fart_header">
-        <ListPreference
-            android:key="io.github.mikeflynn.remotewhoopeecushion.fart_type"
-            android:title="@string/settings_header_fart_type"
-            android:summary="@string/settings_desc_fart_type"
-            android:entries="@array/settings_list_fart_type"
-            android:entryValues="@array/settings_vals_fart_type"
-            android:dialogTitle="@string/settings_header_fart_type"
-            android:defaultValue="chipotle"/>
 
         <ListPreference
             android:key="io.github.mikeflynn.remotewhoopeecushion.fart_delay"
@@ -19,7 +11,8 @@
             android:entries="@array/settings_list_fart_delay"
             android:entryValues="@array/settings_vals_fart_delay"
             android:dialogTitle="@string/settings_header_fart_delay"
-            android:defaultValue="0"/>
+            android:defaultValue="0"
+            android:order="1"/>
 
         <SwitchPreference
             android:key="io.github.mikeflynn.remotewhoopeecushion.fart_notify"
@@ -28,7 +21,8 @@
             android:summaryOn="@string/settings_header_fart_notify_on_summary"
             android:switchTextOff="@string/settings_header_fart_notify_off_title"
             android:switchTextOn="@string/settings_header_fart_notify_on_title"
-            android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:order="2"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="recordings"
@@ -40,6 +34,7 @@
             android:summaryOn="@string/settings_header_record_on_summary"
             android:switchTextOff="@string/settings_header_record_off_title"
             android:switchTextOn="@string/settings_header_record_on_title"
-            android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:order="3"/>
     </PreferenceCategory>
 </PreferenceScreen>

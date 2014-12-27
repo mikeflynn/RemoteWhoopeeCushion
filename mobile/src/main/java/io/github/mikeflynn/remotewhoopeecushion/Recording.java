@@ -56,8 +56,17 @@ public class Recording {
         return this.ctx.getFilesDir() + "/" + prefix + this.filename + EXTENSION;
     }
 
+    public String getPrefix() {
+        return this.prefix;
+    }
+
     public String getFilename() {
         return this.filename;
+    }
+
+    public boolean fileExists() {
+        File file = new File(getPath());
+        return file.exists();
     }
 
     /* Public setter methods */
@@ -85,18 +94,12 @@ public class Recording {
     }
 
     public MediaPlayer play() {
-        mPlayer = new MediaPlayer();
-        try {
-            mPlayer.setDataSource(this.getPath());
-            mPlayer.prepare();
-            mPlayer.start();
-
-            return mPlayer;
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
+        MediaPlayer player = this.getPlayer();
+        if(player != null) {
+            player.start();
         }
 
-        return null;
+        return player;
     }
 
     public void stop() {
@@ -114,5 +117,19 @@ public class Recording {
         File newFile = new File(getPath());
 
         return curFile.renameTo(newFile);
+    }
+
+    protected MediaPlayer getPlayer() {
+        mPlayer = new MediaPlayer();
+        try {
+            mPlayer.setDataSource(this.getPath());
+            mPlayer.prepare();
+
+            return mPlayer;
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        return null;
     }
 }

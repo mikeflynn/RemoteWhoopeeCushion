@@ -42,8 +42,13 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.Vi
 
         final TextView title = (TextView) holder.recordingView.findViewById(R.id.recording_title);
 
-        Date date = new Date(Integer.parseInt(row.getFilename()));
-        title.setText(date.toString());
+        String prefix = row.getPrefix();
+        if(prefix.equals("rec_")) {
+            Date date = new Date(Integer.parseInt(row.getFilename()));
+            title.setText(date.toString());
+        } else {
+            title.setText(row.getFilename());
+        }
 
     //    // Set the click event on the play button
     //    holder.recordingView.setOnClickListener(new View.OnClickListener() {

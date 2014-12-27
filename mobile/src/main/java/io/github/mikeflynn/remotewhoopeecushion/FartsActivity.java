@@ -7,10 +7,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.shapes.Shape;
 import android.media.MediaPlayer;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,9 +59,9 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
         switch(item.getItemId()) {
             case R.id.farts_help:
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setMessage(R.string.recordings_help_message)
-                        .setTitle(R.string.recordings_help_title);
-                alert.setPositiveButton(R.string.recordings_help_ok, new DialogInterface.OnClickListener() {
+                alert.setMessage(R.string.farts_help_message)
+                        .setTitle(R.string.farts_help_title);
+                alert.setPositiveButton(R.string.farts_help_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
@@ -114,7 +113,9 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
 
     protected void displayEmptyMsg() {
         if(allRecordings.size() > 0) {
-            findViewById(R.id.noFartsMsg).setVisibility(View.GONE);
+            findViewById(R.id.noFartsMsg).setVisibility(View.INVISIBLE);
+        } else {
+            findViewById(R.id.noFartsMsg).setVisibility(View.VISIBLE);
         }
     }
 
@@ -133,12 +134,35 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
                           .start();
 
             // Display name prompt
+            final EditText filenameText = new EditText(this);
+            filenameText.setHint(R.string.fart_save_dialog_hint);
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.fart_save_dialog_title)
+                   .setMessage(R.string.fart_save_dialog_message)
+                   .setView(filenameText)
+                   .setPositiveButton(R.string.farts_help_save, new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Rename the audio file and update the list.
+                           String filename = filenameText.getText().toString();
+                           if(!filename.equals("")) {
+                               activeRecording.rename(filename.replaceAll("[,\\.\\+%]", ""));
+                           }
+                           allRecordings.add(activeRecording);
+                           displayEmptyMsg();
 
-            // Update list
-            allRecordings.add(activeRecording);
-            mAdapter.notifyDataSetChanged();
-            displayEmptyMsg();
+                           mAdapter.notifyItemInserted(allRecordings.size()-1);
+                       }
+                   })
+                   .setNegativeButton(R.string.farts_help_cancel, new DialogInterface.OnClickListener(){
+                       @Override
+                       public void onClick(DialogInterface dialog, int id) {
+                           // Delete the audio.
+                           activeRecording.delete();
+                       }
+                   })
+                   .show();
 
             // Update recording flag
             isRecording = false;
@@ -276,7 +300,6 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
                 if(allRecordings.get(position).delete()) {
                     allRecordings.remove(position);
                     mAdapter.notifyItemRemoved(position);
-                    displayEmptyMsg();
 
                     if(direction == LEFT_SWIPE) {
                         YoYo.with(Techniques.SlideOutLeft)
@@ -287,6 +310,8 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
                                 .duration(500)
                                 .playOn(view);
                     }
+
+                    displayEmptyMsg();
                 }
             }
 

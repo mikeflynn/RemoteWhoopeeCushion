@@ -32,11 +32,16 @@
     <!-- Farts Activity -->
     <string name="farts_help">Help</string>
     <string name="title_activity_farts">Custom Farts</string>
-    <string name="farts_help_message">Tap on any recording to play and swipe any recording to delete it.</string>
+    <string name="farts_help_message">Tap on any custom fart to play it and swipe to delete it.</string>
     <string name="farts_help_title">Help</string>
     <string name="farts_help_ok">OK</string>
+    <string name="farts_help_save">Save</string>
+    <string name="farts_help_cancel">Delete</string>
     <string name="no_farts_header">No Custom Farts</string>
     <string name="no_farts_msg">You don\'t have any custom farts yet!\n\nTo record a custom fart, click the plus button on the bottom right to start recording, and tap it again to stop recording. Once saved go to the settings page to use it on your victims!</string>
+    <string name="fart_save_dialog_title">Save Custom Fart</string>
+    <string name="fart_save_dialog_message">Please enter a filename for your new custom fart sound.</string>
+    <string name="fart_save_dialog_hint">A Custom Fart Name</string>
 
     <!-- Settings Activity -->
     <string name="settings_header_fart_type">Select a Fart Type:</string>

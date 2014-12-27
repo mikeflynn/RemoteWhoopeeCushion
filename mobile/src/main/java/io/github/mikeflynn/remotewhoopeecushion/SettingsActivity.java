@@ -36,17 +36,36 @@ public class SettingsActivity extends Activity {
 
             // Set the fart options dynamically
             List<String> farts = new ArrayList<String>();
-            farts.add("test 1");
-            final CharSequence[] fartNames = farts.toArray(new CharSequence[farts.size()]);
-            final CharSequence[] fartValues = farts.toArray(new CharSequence[farts.size()]);
+
+            // Resources
+            farts.add("beans");
+            farts.add("chipotle");
+            farts.add("grunter");
+            farts.add("moist");
+            farts.add("muffled");
+            farts.add("quick");
+            farts.add("random");
+
+            // Custom recordings
+            ArrayList<Recording> recordings = Recording.getList(getActivity(), "fart_");
+            for (int i = 0; i < recordings.size(); i++) {
+                farts.add(recordings.get(i).getFilename());
+            }
+
+            // Set display names
+            ArrayList<String> fartNames = new ArrayList<String>();
+            for(int i = 0; i < farts.size(); i++) {
+                fartNames.add(farts.get(i).toUpperCase());
+            }
 
             ListPreference fartOptions = new ListPreference(getActivity());
+            fartOptions.setKey("io.github.mikeflynn.remotewhoopeecushion.fart_type");
             fartOptions.setTitle(R.string.settings_header_fart_type);
             fartOptions.setSummary(R.string.settings_desc_fart_type);
             fartOptions.setDialogTitle(R.string.settings_header_fart_type);
-            //fartOptions.setDefaultValue("");
-            fartOptions.setEntries(fartNames);
-            fartOptions.setEntryValues(fartValues);
+            fartOptions.setDefaultValue("chipotle");
+            fartOptions.setEntries(fartNames.toArray(new CharSequence[farts.size()]));
+            fartOptions.setEntryValues(farts.toArray(new CharSequence[farts.size()]));
             fartOptions.setOrder(0);
 
             PreferenceCategory fartPrefs = (PreferenceCategory)findPreference("farts");

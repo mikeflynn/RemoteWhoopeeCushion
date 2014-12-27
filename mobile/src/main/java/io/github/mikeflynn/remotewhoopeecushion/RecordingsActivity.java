@@ -73,9 +73,7 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
         // Get the file list
         recordings = Recording.getList(getApplicationContext(), "rec_");
         Collections.reverse(recordings);
-        if(recordings.size() > 0) {
-            findViewById(R.id.noRecordingsMsg).setVisibility(View.GONE);
-        }
+        displayEmptyMsg();
 
         // Set up the list view
         mRecyclerView = (RecyclerView) findViewById(R.id.recordingsList);
@@ -95,6 +93,14 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
         mDetector = new GestureDetectorCompat(getApplicationContext(), new RecyclerViewOnGestureListener());
 
         mRecyclerView.addOnItemTouchListener(this);
+    }
+
+    protected void displayEmptyMsg() {
+        if(recordings.size() > 0) {
+            findViewById(R.id.noRecordingsMsg).setVisibility(View.INVISIBLE);
+        } else {
+            findViewById(R.id.noRecordingsMsg).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -158,6 +164,7 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
             view.setBackgroundColor(getResources().getColor(R.color.green));
 
             MediaPlayer mPlayer = recordings.get(position).play();
+
             mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -240,6 +247,8 @@ public class RecordingsActivity extends Activity implements RecyclerView.OnItemT
                                 .duration(500)
                                 .playOn(view);
                     }
+
+                    displayEmptyMsg();
                 }
             }
 

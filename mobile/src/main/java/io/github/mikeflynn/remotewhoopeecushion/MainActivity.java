@@ -23,6 +23,7 @@ import android.animation.ValueAnimator;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -202,11 +203,11 @@ public class MainActivity extends Activity {
         return delay;
     }
 
-    protected String getFile() {
+    protected MediaPlayer getPlayer() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String name = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
 
-        if(name.equals("-1")) {
+        if(name.equals("random")) {
             ArrayList<String> options = new ArrayList<String>();
             Collections.addAll(options, getResources().getStringArray(R.array.settings_vals_fart_type));
             options.remove(options.size() - 1);
@@ -215,7 +216,18 @@ public class MainActivity extends Activity {
             name = options.get(idx);
         }
 
-        return name;
+        int resourceId = getResources().getIdentifier("raw/"+name, null, this.getPackageName());
+        if(resourceId > 0) {
+            return MediaPlayer.create(getApplicationContext(), resourceId);
+        } else {
+            Recording mediaFile = new Recording(name, getApplicationContext(), "fart_");
+            if(mediaFile.fileExists()) {
+                return mediaFile.getPlayer();
+            }
+
+            // Default fart
+            return MediaPlayer.create(getApplicationContext(), getResources().getIdentifier("raw/chipotle", null, this.getPackageName()));
+        }
     }
 
     public void playFart() {
@@ -223,13 +235,11 @@ public class MainActivity extends Activity {
 
         // Pull the user's preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String wavName = getFile();
         final int wavDelay = getDelay();
         final boolean wavNotify = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.fart_notify", false);
         final boolean doRecord = prefs.getBoolean("io.github.mikeflynn.remotewhoopeecushion.record", false);
 
-        int wavId = getResources().getIdentifier("raw/"+wavName, null, this.getPackageName());
-        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), wavId);
+        final MediaPlayer mp = getPlayer();
         mp.setVolume(1, 1);
 
         new Thread(new Runnable() {
