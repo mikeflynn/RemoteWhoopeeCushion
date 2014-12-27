@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.v4.view.GestureDetectorCompat;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -103,8 +103,8 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
 
         // Create the record button animation
         if(this.recordBtnThrobber == null) {
-            Drawable bgShape = findViewById(R.id.newCustomFart).getBackground();
-            this.recordBtnThrobber = ObjectAnimator.ofObject(bgShape, "color", new ArgbEvaluator(), getResources().getColor(R.color.recording_start), getResources().getColor(R.color.recording_end));
+            CardView btn = (CardView) findViewById(R.id.newCustomFart);
+            this.recordBtnThrobber = ObjectAnimator.ofObject(btn, "cardBackgroundColor", new ArgbEvaluator(), getResources().getColor(R.color.recording_start), getResources().getColor(R.color.recording_end));
             this.recordBtnThrobber.setDuration(750);
             this.recordBtnThrobber.setRepeatCount(ValueAnimator.INFINITE);
             this.recordBtnThrobber.setRepeatMode(ValueAnimator.REVERSE);
@@ -120,16 +120,16 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
     }
 
     public void recordCustomFart(View view) {
-        ImageButton btn = (ImageButton) findViewById(R.id.newCustomFart);
+        CardView btn = (CardView) findViewById(R.id.newCustomFart);
         if(isRecording) {
             // Stop recording
             activeRecording.stopRecording();
 
             // Reset the button
             this.recordBtnThrobber.cancel();
-            btn.setImageResource(R.drawable.ic_add_white_48dp);
-            Drawable bgShape = btn.getBackground();
-            ObjectAnimator.ofObject(bgShape, "color", new ArgbEvaluator(), getResources().getColor(R.color.recording_end), getResources().getColor(R.color.green))
+            ImageView icon = (ImageView) findViewById(R.id.newCustomFart_icon);
+            icon.setImageResource(R.drawable.ic_add_white_48dp);
+            ObjectAnimator.ofObject(btn, "cardBackgroundColor", new ArgbEvaluator(), getResources().getColor(R.color.recording_end), getResources().getColor(R.color.green))
                           .setDuration(750)
                           .start();
 
@@ -152,7 +152,7 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
                            allRecordings.add(activeRecording);
                            displayEmptyMsg();
 
-                           mAdapter.notifyItemInserted(allRecordings.size()-1);
+                           mAdapter.notifyItemInserted(allRecordings.size() - 1);
                        }
                    })
                    .setNegativeButton(R.string.farts_help_cancel, new DialogInterface.OnClickListener(){
@@ -168,7 +168,8 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
             isRecording = false;
         } else {
             // Switch button display
-            btn.setImageResource(R.drawable.ic_mic_white_48dp);
+            ImageView icon = (ImageView) findViewById(R.id.newCustomFart_icon);
+            icon.setImageResource(R.drawable.ic_mic_white_48dp);
             this.recordBtnThrobber.start();
 
             // Start recording
