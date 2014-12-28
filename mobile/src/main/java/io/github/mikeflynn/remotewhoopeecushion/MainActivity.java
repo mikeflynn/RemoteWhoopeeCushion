@@ -208,10 +208,7 @@ public class MainActivity extends Activity {
         String name = prefs.getString("io.github.mikeflynn.remotewhoopeecushion.fart_type", "chipotle");
 
         if(name.equals("random")) {
-            ArrayList<String> options = new ArrayList<String>();
-            Collections.addAll(options, getResources().getStringArray(R.array.settings_vals_fart_type));
-            options.remove(options.size() - 1);
-
+            ArrayList<String> options = FartsActivity.getAllFarts(getApplicationContext());
             int idx = new Random().nextInt(options.size());
             name = options.get(idx);
         }

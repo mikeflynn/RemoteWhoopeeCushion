@@ -35,22 +35,7 @@ public class SettingsActivity extends Activity {
             addPreferencesFromResource(R.xml.preferences);
 
             // Set the fart options dynamically
-            List<String> farts = new ArrayList<String>();
-
-            // Resources
-            farts.add("beans");
-            farts.add("chipotle");
-            farts.add("grunter");
-            farts.add("moist");
-            farts.add("muffled");
-            farts.add("quick");
-            farts.add("random");
-
-            // Custom recordings
-            ArrayList<Recording> recordings = Recording.getList(getActivity(), "fart_");
-            for (int i = 0; i < recordings.size(); i++) {
-                farts.add(recordings.get(i).getFilename());
-            }
+            List<String> farts = FartsActivity.getAllFarts(getActivity());
 
             // Set display names
             ArrayList<String> fartNames = new ArrayList<String>();

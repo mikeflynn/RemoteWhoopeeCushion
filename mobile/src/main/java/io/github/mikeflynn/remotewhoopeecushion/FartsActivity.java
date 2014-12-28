@@ -5,8 +5,8 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.v4.view.GestureDetectorCompat;
 import android.os.Bundle;
@@ -45,6 +45,27 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
     static private boolean isRecording = false;
     static private Recording activeRecording;
     private ObjectAnimator recordBtnThrobber = null;
+
+    static public ArrayList<String> getAllFarts(Context ctx) {
+        ArrayList<String> farts = new ArrayList<String>();
+
+        // Resources
+        farts.add("beans");
+        farts.add("chipotle");
+        farts.add("grunter");
+        farts.add("moist");
+        farts.add("muffled");
+        farts.add("quick");
+        farts.add("random");
+
+        // Custom recordings
+        ArrayList<Recording> recordings = Recording.getList(ctx, "fart_");
+        for (int i = 0; i < recordings.size(); i++) {
+            farts.add(recordings.get(i).getFilename());
+        }
+
+        return farts;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
