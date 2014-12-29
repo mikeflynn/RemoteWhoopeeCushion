@@ -56,13 +56,14 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
         farts.add("moist");
         farts.add("muffled");
         farts.add("quick");
-        farts.add("random");
 
         // Custom recordings
         ArrayList<Recording> recordings = Recording.getList(ctx, "fart_");
         for (int i = 0; i < recordings.size(); i++) {
             farts.add(recordings.get(i).getFilename());
         }
+
+        farts.add("random");
 
         return farts;
     }

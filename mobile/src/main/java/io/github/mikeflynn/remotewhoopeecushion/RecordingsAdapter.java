@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.ViewHolder> {
     //private Context theContext;
@@ -44,8 +43,8 @@ public class RecordingsAdapter extends RecyclerView.Adapter<RecordingsAdapter.Vi
 
         String prefix = row.getPrefix();
         if(prefix.equals("rec_")) {
-            Date date = new Date(Integer.parseInt(row.getFilename()));
-            title.setText(date.toString());
+            java.util.Date time = new java.util.Date((long) Integer.parseInt(row.getFilename()) * 1000);
+            title.setText(time.toString());
         } else {
             title.setText(row.getFilename());
         }

@@ -255,9 +255,8 @@ public class MainActivity extends Activity {
                             // Update the button.
                             recordingFartButton();
 
-                            Long tsLong = System.currentTimeMillis()/1000;
-                            String ts = tsLong.toString();
-                            final Recording rec = new Recording(ts, getApplicationContext());
+                            int ts = (int)(System.currentTimeMillis()/1000L);
+                            final Recording rec = new Recording(ts+"", getApplicationContext());
                             rec.startRecording();
                             stopRecording(rec, 10);
                         }
