@@ -169,7 +169,7 @@ public class FartsActivity extends Activity implements RecyclerView.OnItemTouchL
                            // Rename the audio file and update the list.
                            String filename = filenameText.getText().toString();
                            if(!filename.equals("")) {
-                               activeRecording.rename(filename.replaceAll("[,\\.\\+%]", ""));
+                               activeRecording.rename(filename.replaceAll("[,\\.\\+%:;\\?|']", ""));
                            }
                            allRecordings.add(activeRecording);
                            displayEmptyMsg();
