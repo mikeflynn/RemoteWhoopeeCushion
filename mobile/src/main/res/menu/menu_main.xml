@@ -13,7 +13,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_farts"
-        android:title="Custom Farts"
+        android:title="@string/action_farts"
         android:orderInCategory="102"
         app:showAsAction="never" />
 </menu>

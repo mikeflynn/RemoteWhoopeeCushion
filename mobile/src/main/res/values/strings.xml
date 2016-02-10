@@ -9,6 +9,7 @@
     <string name="main_description">Simply tap on the button below to fart, or use your Android Wear device to trigger a fart remotely.\n\nCheck out the settings page to change the fart type, set a fart delay and notification options.</string>
     <string name="action_settings">Settings</string>
     <string name="action_recordings">Reactions</string>
+    <string name="action_farts">Custom Farts</string>
     <string name="fart_button">Tap to Fart!</string>
     <string name="fart_button_recording">Recording…</string>
     <string name="help_card_header">Remote Whoopee Cushion</string>
